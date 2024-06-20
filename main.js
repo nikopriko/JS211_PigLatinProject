@@ -10,11 +10,26 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-
 const pigLatin = (word) => {
+  let consistentWord = word.toLowerCase(); //converts everything to lowercase 
+  let firstLetter = consistentWord.charAt(0);
+ 
+  //checking if word starts with a vowel
+ if(consistentWord.charAt(0) === 'a' || 
+    consistentWord.charAt(0) === 'e' || 
+    consistentWord.charAt(0) === 'i' ||
+    consistentWord.charAt(0) === 'o' ||
+    consistentWord.charAt(0) === 'u') 
+    {return consistentWord+"yay";
+    }
 
-  // Your code here
+//if word is "complex"(longer then 4 char?) then move first two chars to back 
+else if (consistentWord.length > 4) 
+     {return consistentWord.substr(2) + consistentWord.substr(0,2) + "ay";
+     }
 
+else {return consistentWord.substr(1) + consistentWord.substr(0,1) + "ay";
+     }
 }
 
 // the first function called in the program to get an input from the user
@@ -32,19 +47,23 @@ const getPrompt = () => {
 // to close them ctrl + C
 if (typeof describe === 'function') {
 
+  //done
   describe('#pigLatin()', () => {
     it('should translate a simple word', () => {
       assert.equal(pigLatin('car'), 'arcay');
       assert.equal(pigLatin('dog'), 'ogday');
     });
+    //done
     it('should translate a complex word', () => {
       assert.equal(pigLatin('create'), 'eatecray');
       assert.equal(pigLatin('valley'), 'alleyvay');
     });
+    //done
     it('should attach "yay" if word begins with vowel', () => {
       assert.equal(pigLatin('egg'), 'eggyay');
       assert.equal(pigLatin('emission'), 'emissionyay');
     });
+    //done
     it('should lowercase and trim word before translation', () => {
       assert.equal(pigLatin('HeLlO '), 'ellohay');
       assert.equal(pigLatin(' RoCkEt'), 'ocketray');
